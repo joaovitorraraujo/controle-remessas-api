@@ -2,7 +2,7 @@ package com.spring.controle_remessas_api.domain.services;
 
 import com.spring.controle_remessas_api.domain.entities.UserEntity;
 import com.spring.controle_remessas_api.domain.repositories.UserRepository;
-import com.spring.controle_remessas_api.web.dto.UserDTO;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<UserEntity> gettAllUsers(){
+    public List<UserEntity> getAllUsers(){
         return userRepository.findAll();
     }
 }

@@ -20,6 +20,11 @@ public class AuthenticationController {
         this.authenticationManager = authenticationManager;
     }
 
+    @GetMapping
+    public String publicGet(){
+        return "acesso ao publicGet";
+    }
+
     @PostMapping("/login")
     public String authenticate(@RequestBody LoginRequestDTO loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
