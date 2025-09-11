@@ -15,6 +15,7 @@ import java.util.UUID;
 public class CityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", columnDefinition = "UUID DEFAULT gen_random_uuid()", nullable = false)
     private UUID id;
 
     @Column(nullable = false)
@@ -28,6 +29,6 @@ public class CityEntity {
     )
     private List<UserEntity> responsibles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RemittanceEntity> remittances = new ArrayList<>();
 }
