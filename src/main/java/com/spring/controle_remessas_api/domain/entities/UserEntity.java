@@ -20,11 +20,11 @@ import java.util.UUID;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false, unique = true, updatable = false)
+    @Column(name = "id", nullable = false, unique = true, updatable = false, columnDefinition = "UUID DEFAULT gen_random_uuid()")
     private UUID id;
 
     @Column(nullable = false)
-    private String name;
+    private String username;
 
     @Column(nullable = false, unique = true)
     private String cpf;
@@ -38,5 +38,9 @@ public class UserEntity {
 
     @ManyToMany(mappedBy = "responsibles")
     private List<CityEntity> cities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "responsibleShipping")
+    private List<RemittanceEntity> remittancesShipping = new ArrayList<>();
+
 
 }

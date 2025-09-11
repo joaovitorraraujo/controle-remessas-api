@@ -21,22 +21,24 @@ import java.util.UUID;
 public class RemittanceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", columnDefinition = "UUID DEFAULT gen_random_uuid()", nullable = false)
     private UUID id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TypeRemittanceEnum TypeRemittance;
+    @Column(name = "type_remittance", nullable = false)
+    private TypeRemittanceEnum typeRemittance;
 
-    @Column(nullable = false)
-    private List<String> period;
+    @Column(name = "period", columnDefinition = "text[]", nullable = false)
+    private String[] period;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StatusEnum status;
 
-    @Column(length = 1000)
+    @Column(name = "reason_pendency", length = 1000)
     private String reasonPendency;
 
+    @Column(name = "date_shipping")
     private LocalDate dateShipping;
 
     @ManyToOne
@@ -46,5 +48,4 @@ public class RemittanceEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity responsibleShipping;
-
 }
