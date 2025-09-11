@@ -1,5 +1,6 @@
 package com.spring.controle_remessas_api.web.dto;
 
+import com.spring.controle_remessas_api.domain.entities.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,4 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDTO {
     private String name;
+
+    public UserDTO(UserEntity userEntity){
+        this.name = userEntity.getUsername();
+    }
 }
