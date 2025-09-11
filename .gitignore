@@ -1,0 +1,58 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Logs ###
+*.log
+logs/
+spring.log
+
+### OS ###
+.DS_Store
+Thumbs.db
+
+### Docker ###
+/postgres_data/        # caso monte volume local em pasta
+*.pid
+*.seed
+*.bak
+
+### Docker Compose Override ###
+docker-compose.override.yml
+
+### Environment files ###
+.env
+.env.*
+
+### Ignorar key ###
+src/main/resources/app.key
