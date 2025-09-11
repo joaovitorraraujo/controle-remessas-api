@@ -14,7 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/user/")
+@RequestMapping("/api/user/")
 public class UserController {
 
     private final UserService userService;
@@ -23,7 +23,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("private")
     public String privateGet(){
         return "acesso ao privateGet";
     }

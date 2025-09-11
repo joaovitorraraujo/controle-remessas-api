@@ -20,7 +20,7 @@ public class AuthenticationController {
         this.authenticationManager = authenticationManager;
     }
 
-    @GetMapping
+    @GetMapping("public")
     public String publicGet(){
         return "acesso ao publicGet";
     }
