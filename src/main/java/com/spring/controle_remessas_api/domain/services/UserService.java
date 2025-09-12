@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -22,8 +23,13 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<UserEntity> getAllUsers(){
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers(){
+        List<UserEntity> allUsers= userRepository.findAll();
+        return allUsers.stream().map(user -> {
+            UserDTO dto = new UserDTO();
+            dto.setName(user.getUsername());
+            return dto;
+        }).collect(Collectors.toList());
     }
 
     public UserEntity  registerUser(RegisterRequestDTO requestDTO){
