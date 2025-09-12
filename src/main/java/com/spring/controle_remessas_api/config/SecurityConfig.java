@@ -1,16 +1,19 @@
 package com.spring.controle_remessas_api.config;
 
+import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -38,28 +41,26 @@ public class SecurityConfig {
     private RSAPrivateKey privateKey;
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/api/auth/**")
-                                .permitAll()
-                                .anyRequest()
-                                .authenticated()
-                )
-                .oauth2ResourceServer(
-                        conf  -> conf.jwt(Customizer.withDefaults())
-                );
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers("/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/auth/login").permitAll()
+                        .anyRequest().authenticated())
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/auth/**"))
+                .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
     }
 
     @Bean
-    JwtDecoder jwtDecoder(){
-        return NimbusJwtDecoder.withPublicKey(publicKey).build();
+    public JwtDecoder jwtDecoder(){
+        return NimbusJwtDecoder.withPublicKey(this.publicKey).build();
     }
 
     @Bean
-    JwtEncoder jwtEncoder(){
-        var jwk = new RSAKey.Builder(publicKey).privateKey(privateKey).build();
+    public JwtEncoder jwtEncoder(){
+        JWK jwk = new RSAKey.Builder(this.publicKey).privateKey(this.privateKey).build();
         var jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jwks);
     }
