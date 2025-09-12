@@ -1,4 +1,4 @@
-package com.spring.controle_remessas_api.web.controllers;
+package com.spring.controle_remessas_api.web.controllers.privateControllers;
 
 
 import com.spring.controle_remessas_api.domain.services.UserService;
@@ -25,7 +25,7 @@ public class UserController {
 
 
     @GetMapping("/all")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<UserDTO>> getUsers(){
         return ResponseEntity.ok(userService.getAllUsers());
     }
