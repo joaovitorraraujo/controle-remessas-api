@@ -52,7 +52,6 @@ docker-compose.override.yml
 
 ### Environment files ###
 .env
-.env.*
 
 ### Ignorar key ###
 src/main/resources/app.key
