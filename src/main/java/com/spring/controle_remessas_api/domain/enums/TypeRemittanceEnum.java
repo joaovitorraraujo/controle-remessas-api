@@ -5,5 +5,5 @@ public enum TypeRemittanceEnum {
     SIOPE,
     SIOPS,
     SICONFI,
-    ORCAMENTO
+    ORÇAMENTOS
 }
