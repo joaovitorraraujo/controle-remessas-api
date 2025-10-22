@@ -3,7 +3,7 @@ package com.spring.controle_remessas_api.web.controllers.privateControllers;
 
 import com.spring.controle_remessas_api.domain.services.UserService;
 
-import com.spring.controle_remessas_api.web.dto.UserDTO;
+import com.spring.controle_remessas_api.web.dto.output.UserResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,7 @@ public class UserController {
 
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<List<UserDTO>> getUsers(){
+    public ResponseEntity<List<UserResponseDto>> getUsers(){
         return ResponseEntity.ok(userService.getAllUsers());
     }
 }

@@ -4,7 +4,7 @@ import com.spring.controle_remessas_api.domain.entities.UserEntity;
 import com.spring.controle_remessas_api.domain.repositories.UserRepository;
 
 import com.spring.controle_remessas_api.security.auth.dto.RegisterRequestDTO;
-import com.spring.controle_remessas_api.web.dto.UserDTO;
+import com.spring.controle_remessas_api.web.dto.output.UserResponseDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +23,10 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<UserDTO> getAllUsers(){
+    public List<UserResponseDto> getAllUsers(){
         List<UserEntity> allUsers= userRepository.findAll();
         return allUsers.stream().map(user -> {
-            UserDTO dto = new UserDTO();
+            UserResponseDto dto = new UserResponseDto();
             dto.setName(user.getUsername());
             return dto;
         }).collect(Collectors.toList());

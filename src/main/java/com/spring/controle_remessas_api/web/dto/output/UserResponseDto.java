@@ -1,4 +1,4 @@
-package com.spring.controle_remessas_api.web.dto;
+package com.spring.controle_remessas_api.web.dto.output;
 
 import com.spring.controle_remessas_api.domain.entities.UserEntity;
 import lombok.AllArgsConstructor;
@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserResponseDto {
     private String name;
 
-    public UserDTO(UserEntity userEntity){
+    public UserResponseDto(UserEntity userEntity){
         this.name = userEntity.getUsername();
     }
 }
