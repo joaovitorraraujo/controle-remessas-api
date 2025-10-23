@@ -26,7 +26,7 @@ public class JwtService {
                 .atStartOfDay()
                 .toInstant(ZoneOffset.of("-03:00"));
 
-        String scopes = authentication.getAuthorities().stream()
+        String authorities  = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(" "));
 
@@ -35,7 +35,7 @@ public class JwtService {
                 .issuedAt(now)
                 .expiresAt(expiry)
                 .subject(authentication.getName())
-                .claim("scope", scopes)
+                .claim("authorities", authorities)
                 .build();
 
         return encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
